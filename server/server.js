@@ -1,9 +1,9 @@
 global.__VERSION__ = require('../package.json').version;
 global.__PROD__ = process.env.NODE_ENV === "production";
-// global.__API_PROD__ = process.env.API_PROD || 'hostname';
-// global.__API_BETA__ = process.env.API_BETA || 'hostname';
+// global.__API_PROD__ = process.env.API_PROD || hostname;
+// global.__API_BETA__ = process.env.API_BETA || hostname;
 
-// var hostname = (!global.__PROD__ ? "54.159.32.229" : "levelmoney.com/app");
+// var hostname = (global.__PROD__ ? "BETA HOST" : "PROD HOSE");
 
 var express = require('express'),
   path = require('path'),
@@ -76,11 +76,11 @@ var TEN_YEARS = 315569259747,
   CAN_PRERENDER = fs.existsSync(path.join(__dirname, '..', 'static', 'app.js')),
   everythingButFilesRegex = /^[^\.]+$/;
 
-app.use(everythingButFilesRegex, (req, res) =>
+app.use(everythingButFilesRegex, (req, res)=> {
   (CAN_PRERENDER ?
     res.set({'Cache-Control':'public, max-age='+TEN_YEARS}).send(render(req.baseUrl)) :
     res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'), { maxAge: TEN_YEARS }))
-);
+});
 
 app.use(express.static(path.join(__dirname, '..', 'dist'), { maxAge: TEN_YEARS }));
 
@@ -92,4 +92,4 @@ console.log(process.env.PORT);
 app.listen(process.env.PORT || 8080, '0.0.0.0');
 
 
-console.log(`WebBoarding is up ${global.__VERSION__}`);
+console.log('WebBoarding is up '+ global.__VERSION__);

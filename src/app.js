@@ -2,12 +2,18 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute ,browserHistory } from 'react-router';
 
+import NavBar from './components/navbar';
+import Flex from './components/flex';
+
+import './assets/main.sass';
+
 let App = React.createClass({
 
   render() {
     return (
-      <div>
-        <p>Hello World</p>
+      <div className="App" direction='column'>
+        <NavBar />
+        <p>Furture site to come..</p>
       </div>);
   }
 });

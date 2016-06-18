@@ -1,5 +1,5 @@
 FROM library/node
-MAINTAINER alan@levelmoney.com
+MAINTAINER alanchoi08@gmail.com
 
 RUN mkdir /.npm
 RUN mkdir /app

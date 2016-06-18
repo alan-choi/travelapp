@@ -15,9 +15,14 @@ module.exports = (function(options){
   ContextReplacementPlugin = require("webpack/lib/ContextReplacementPlugin"),
   devPort = process.env.PORT = process.env.PORT || 8000;
 
+var globals = {
+  React: 'react',
+  ReactDom: 'react-dom'};
+
 var baseConfig = {
   entry: {
-    app: ['./app/app.js']
+    app: ['./src/app.js'],
+    libs: Object.keys(globals).map(function(k){ return globals[k]; })
   },
 
   output: {
@@ -35,9 +40,9 @@ var baseConfig = {
     loaders: [{
       /* convert all source files */
       test: /\.(js|jsx)$/,
-      include: [/app/],
+      include: [/src/],
       exclude: [/(node_modules|persistence)/],
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         plugins: ['transform-runtime'],
         presets: ['es2015', 'stage-0', 'react'],
@@ -80,7 +85,7 @@ var baseConfig = {
   target: "web",
 
   resolveLoader: {
-    root: [path.join(__dirname, "node_modules"), './app', 'vendor'],
+    root: [path.join(__dirname, "node_modules"), './src', 'vendor'],
   },
 
   resolve: {
@@ -181,9 +186,8 @@ function updatePlugins(config, options) {
   filename: 'index.html',
   inject: false,
   version: version,
-  template: 'app/assets/index.htm'
+  template: 'src/assets/index.htm'
   }));
-  console.log(options);
   if(options.minimize) {
     config.plugins.push(
       new webpack.optimize.UglifyJsPlugin({
