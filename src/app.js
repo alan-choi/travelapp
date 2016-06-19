@@ -35,12 +35,13 @@ let App = React.createClass({
     });
   },
 
-  submitInput(data){
+  _submitInput(data){
     //change questions to be in the object.
+    console.log(data);
   },
 
   render() {
-    let tripTiles = Object.keys(this.state.trip).map((title) => <TripTile title={title} />);
+    let tripTiles = Object.keys(this.state.trip).map((title, idx) => <TripTile key={title+idx} title={title} />);
     return (
       <div className="App" direction='column'>
         <NavBar />
@@ -48,7 +49,7 @@ let App = React.createClass({
           { tripTiles }
         </Flex>
         <Flex className="app-content" direction='column' alignContent='center' justifyContent='center'>
-          <BuildPrompt />
+          <BuildPrompt submitInput={this._submitInput} />
         </Flex>
       </div>);
   }

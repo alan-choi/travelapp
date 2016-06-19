@@ -27,7 +27,7 @@ let BuildPrompt = React.createClass({
     let curIdx = this.state.promptIdx;
     let nextIdx = curIdx < (QUESTIONS.length-1) ? (curIdx + 1) : curIdx;
     this.props.submitInput({questionIdx: this.state.promptIdx, text: this.state.value});
-    this.setState({ promptIdx: nextIdx });
+    this.setState({ promptIdx: nextIdx, value: "" });
   },
 
   _handleChange(e) {
@@ -35,12 +35,19 @@ let BuildPrompt = React.createClass({
     this.setState({value: e.target.value});
   },
 
+  _handleEnter(e) {
+    if (e.key === 'Enter') {
+      this._handleNext(e);
+    }
+    return ;
+  },
+
   render(){
     return(
       <Flex className='BuildPrompt' direction='column' alignItems='center'>
         <h3></h3>
         <h4>{ QUESTIONS[this.state.promptIdx] }</h4>
-        <input onChange={this._handleChange}></input>
+        <input type="text" value={this.state.value} onKeyDown={this._handleEnter} onChange={this._handleChange}></input>
         <Flex>
           <button onClick={this._handleBack}>{("back").toUpperCase()}</button>
           <button onClick={this._handleNext }>{("next").toUpperCase()}</button>
