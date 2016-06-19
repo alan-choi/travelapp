@@ -5,15 +5,51 @@ import { Router, Route, Link, IndexRoute ,browserHistory } from 'react-router';
 import NavBar from './components/navbar';
 import Flex from './components/flex';
 
-import './assets/main.sass';
+import BuildPrompt from './components/build_prompt';
+import TripTile from './components/trip_tile';
+import {QUESTIONS, TILES} from './common/constants';
+import './common/main.sass';
 
 let App = React.createClass({
+  getDefaultProps: () => {
+    return {
+      tiles: {
+        destination: {city: "", lat: null, lng: null},
+        when: {},
+        travelers: {},
+        budget: {},
+        itinerary: {}
+      }
+    };
+  },
+  getInitialState(){
+    return ({
+      trip: {
+        destination: {city: "", lat: null, lng: null},
+        when: {date: {day: "", month: "", year: ""}},
+        travelers: {name: "", email: ""},
+        flights: {departing: {}, returning: {}},
+        budget: {},
+        itinerary: {}
+      }
+    });
+  },
+
+  submitInput(data){
+    //change questions to be in the object.
+  },
 
   render() {
+    let tripTiles = Object.keys(this.state.trip).map((title) => <TripTile title={title} />);
     return (
       <div className="App" direction='column'>
         <NavBar />
-        <p>Furture site to come..</p>
+        <Flex justifyContent='space-around'>
+          { tripTiles }
+        </Flex>
+        <Flex className="app-content" direction='column' alignContent='center' justifyContent='center'>
+          <BuildPrompt />
+        </Flex>
       </div>);
   }
 });

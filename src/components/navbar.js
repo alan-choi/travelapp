@@ -8,7 +8,7 @@ let NavBar = React.createClass({
     let navItems = ['home', 'explore', 'sign in' ].map((text, idx) =>
       React.createElement('p', {key: idx+text, className: "nav-item"}, text.toUpperCase()));
     return(
-        <Flex className='NavBar' direction='row' alignContent='center' justifyContent='flex-end'>
+        <Flex className='NavBar' direction='row' alignContent='flex-end' justifyContent='flex-end'>
           {navItems}
         </Flex>
     );
