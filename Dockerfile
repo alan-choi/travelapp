@@ -13,7 +13,7 @@ RUN cp -a /.npm/node_modules /app/
 WORKDIR /app
 
 ADD package.json /app/package.json
-ADD app /app/app
+ADD src /app/src
 ADD server /app/server
 ADD webpack.config.js /app/webpack.config.js
 ADD webpack.dist.config.js /app/webpack.dist.config.js
