@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import request from 'superagent';
 import { render } from 'react-dom';
 import { Router, Route, Link, IndexRoute ,browserHistory } from 'react-router';
 
@@ -35,6 +37,19 @@ let App = React.createClass({
     });
   },
 
+  componentDidMount(){
+
+  },
+
+  _createUser(){
+    axios.post('/signup', {email: 'alanchoi08@gmail.com', password: 'something'})
+      .then((res)=>{
+        console.log(res);
+      }).catch((err) =>{
+        console.log(err);
+      })
+  },
+
   _submitInput(data){
     //change questions to be in the object.
     console.log(data);
@@ -45,10 +60,14 @@ let App = React.createClass({
     return (
       <div className="App" direction='column'>
         <NavBar />
+
         <Flex justifyContent='space-around'>
           { tripTiles }
         </Flex>
         <Flex className="app-content" direction='column' alignContent='center' justifyContent='center'>
+          <div style={{height: '50px', width: '100px'}} onClick={this._createUser}>
+            createUser
+          </div>
           <BuildPrompt submitInput={this._submitInput} />
         </Flex>
       </div>);
